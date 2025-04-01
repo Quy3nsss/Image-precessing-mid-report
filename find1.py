@@ -6,6 +6,20 @@ image = cv2.imread('CropImg/cropped_1.jpg')
 # convert to Gray
 image_gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
+image_gray = cv2.GaussianBlur(image_gray, (3, 3), 0)
+
+# ret, _ = cv2.threshold(image_gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+# low_threshold = float(ret * 0.5)  
+# high_threshold = float(ret)       
+# image_gray = cv2.Canny(image_gray, low_threshold, high_threshold)
+
+sobelx = cv2.Sobel(image_gray, cv2.CV_64F, 1, 0, ksize=3)
+sobely = cv2.Sobel(image_gray, cv2.CV_64F, 0, 1, ksize=3)
+
+image_gray = np.sqrt(sobelx**2 + sobely**2)
+
+image_gray = np.uint8(255 * image_gray / np.max(image_gray))
+
 templates = [
     "ball", "baloon", "bear", "bow", "boat",
     "bunny", "cake", "car", "duck", "grape",
@@ -21,6 +35,20 @@ for template in templates:
     
     # convert template to grayscale
     template_gray = cv2.cvtColor(template_image, cv2.COLOR_BGR2GRAY)
+    
+    template_gray = cv2.GaussianBlur(template_gray, (3, 3), 0)
+    
+    # ret, _ = cv2.threshold(template_gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+    # low_threshold = float(ret * 0.5)  
+    # high_threshold = float(ret)       
+    # template_gray = cv2.Canny(template_gray, low_threshold, high_threshold)
+    
+    sobelx = cv2.Sobel(template_gray, cv2.CV_64F, 1, 0, ksize=3)
+    sobely = cv2.Sobel(template_gray, cv2.CV_64F, 0, 1, ksize=3)
+    
+    template_gray = np.sqrt(sobelx**2 + sobely**2)
+    
+    template_gray = np.uint8(255 * template_gray / np.max(template_gray))
     
     # make mask to reject the white background
     _, template_mask = cv2.threshold(template_gray, 240, 255, cv2.THRESH_BINARY_INV)
