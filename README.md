@@ -87,7 +87,7 @@ Template được cắt và đối tượng cần tìm trong ảnh có kích th�
 
 **Mutiscale.**
 
-Phương pháp multi-scale trong mã nguồn của bạn là một cách tiếp cận thông minh để giải quyết một hạn chế quan trọng của template matching truyền thống. 
+Phương pháp multi-scale. 
 
 - **Tính bất biến với tỷ lệ (Scale Invariance)**: Template matching cơ bản rất nhạy cảm với kích thước, nhưng bằng cách thử template ở nhiều tỷ lệ khác nhau (0.5 đến 1.0), thuật toán có thể phát hiện đối tượng ở các kích thước khác nhau.
 - **Độ chính xác cao hơn**: Bằng cách thử 20 tỷ lệ khác nhau, thuật toán có khả năng cao hơn trong việc tìm ra kích thước template phù hợp nhất với đối tượng trong ảnh.
